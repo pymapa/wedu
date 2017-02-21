@@ -12,11 +12,26 @@ app.use(logger('dev'));
 app.use(express.static('public'));
 app.use(express.static('views'));
 
+var connectedUsers = 0;
 io.sockets.on('connection', function(socket) {
-    console.log('socket connected!!!');
+    connectedUsers++;
+    console.log('user connected');
+    console.log("connected users: " + connectedUsers);
+
+    socket.on('add user', function(username) {
+        console.log("add user: " + username);
+        io.sockets.emit('user joined', {"username":username, "numUsers": connectedUsers})
+    })
+
+    
+    socket.on('new message', function(data) {
+        console.log('new message, message: ' + data.message);
+        io.sockets.emit('new message', {"username": data.username, 'message': data.message})
+    })
 
     socket.on('disconnect', function() {
-        console.log("disconnected");
+        console.log("user disconnected");
+        connectedUsers--;
     })
 })
 
