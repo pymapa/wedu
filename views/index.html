@@ -16,13 +16,31 @@
     <div class="container">
         <h1>WEDU</h1>
         <h2>Dem bezd stardubbbbbb thingy</h2>
+        <div class="messages">
 
+        </div>
+        <form name="message">
+            <input id="message" type="text">
+            <button type="submit">Send message</button>
+        </form>
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+    var socket = io();
         $(document).ready(function () {
-            io.connect();
+            
+            socket.connect();
+
+            socket.on('connect', function() {
+                console.log('user connected');
+            })
+
+            $('form').on('submit', function (e) {
+                e.preventDefault();
+                var message = $('#message').val();
+                socket.emit('new message', {'username': 'pyry', 'message': message});
+            })
         })
     </script>
 </body>
