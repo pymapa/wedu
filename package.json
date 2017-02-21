@@ -11,6 +11,7 @@
   "author": "Pyry Pajunpää, Sami Nieminen, Anna Paloposki",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.16.1",
     "express": "^4.14.1",
     "morgan": "^1.8.1",
     "socket.io": "^1.7.2"

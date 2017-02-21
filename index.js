@@ -4,13 +4,16 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var logger = require('morgan');
 var path = require('path');
+var bodyParser = require('body-parser');
 
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
+app.use(bodyParser.json());
 
 //Serve static files from public-folder
 app.use(express.static('public'));
 app.use(express.static('views'));
+
 
 var connectedUsers = 0;
 io.sockets.on('connection', function(socket) {
@@ -26,6 +29,7 @@ io.sockets.on('connection', function(socket) {
 
     
     socket.on('new message', function(data) {
+        console.log(data);
         console.log('new message, message: ' + data.message);
         io.sockets.emit('new message', {"username": data.username, 'message': data.message})
     })
