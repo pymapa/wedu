@@ -21,6 +21,7 @@ io.sockets.on('connection', function(socket) {
     socket.on('add user', function(username) {
         console.log("add user: " + username);
         io.sockets.emit('user joined', {"username":username, "numUsers": connectedUsers})
+        io.sockets.emit('login',  {"username":username, "numUsers": connectedUsers});
     })
 
     
