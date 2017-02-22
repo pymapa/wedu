@@ -32,6 +32,12 @@ io.sockets.on('connection', function(socket) {
         io.sockets.emit('typing', data);
     })
 
+    socket.on('stop typing', function(data) {
+        console.log("stop typing");
+        console.log(data);
+        io.sockets.emit("stop typing", data);
+    })
+
     socket.on('new message', function(data) {
         console.log(data);
         console.log('new message, message: ' + data.message);
