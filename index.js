@@ -41,7 +41,13 @@ io.sockets.on('connection', function(socket) {
     socket.on('new message', function(data) {
         console.log(data);
         console.log('new message, message: ' + data.message);
-        io.sockets.emit('new message', {"username": data.username, 'message': data.message})
+        io.sockets.emit('new message', data);
+    })
+
+    socket.on('user left', function(data) {
+        console.log('user left');
+        console.log(data);
+        io.sockets.emit('user left', data);
     })
 
     socket.on('disconnect', function() {
