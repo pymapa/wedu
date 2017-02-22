@@ -27,7 +27,11 @@ io.sockets.on('connection', function(socket) {
         io.sockets.emit('login',  {"username":username, "numUsers": connectedUsers});
     })
 
-    
+    socket.on('typing', function(data) {
+        console.log("user " + data.username + " is typing");
+        io.sockets.emit('typing', data);
+    })
+
     socket.on('new message', function(data) {
         console.log(data);
         console.log('new message, message: ' + data.message);
