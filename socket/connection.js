@@ -23,11 +23,11 @@ module.exports = function (app, io) {
             socket.broadcast.emit("stop typing", {username: socket.username});
         })
 
-        socket.on('new message', function (message) {
-            console.log('new message, message: ' + message);
+        socket.on('new message', function (data) {
+            console.log('new message, message: ' + data.message);
             io.sockets.emit('new message', {
                 username: socket.username, 
-                message: message});
+                message: data.message});
         })
 
         socket.on('disconnect', function () {
