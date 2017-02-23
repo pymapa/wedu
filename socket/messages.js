@@ -1,3 +1,4 @@
+var messageService = require('./../services/message-service');
 
 module.exports = function(io, socket) {
     socket.on('typing', function () {
@@ -12,6 +13,7 @@ module.exports = function(io, socket) {
 
         socket.on('new message', function (data) {
             // Message to db
+            messageService.newMessage(data);
             console.log("new message");
             io.sockets.emit('new message', {
                 username: socket.username, 
