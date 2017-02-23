@@ -23,31 +23,31 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('add user', function(username) {
         console.log("add user: " + username);
-        io.sockets.emit('user joined', {"username":username, "numUsers": connectedUsers})
-        io.sockets.emit('login',  {"username":username, "numUsers": connectedUsers});
+        io.broadcast.emit('user joined', {"username":username, "numUsers": connectedUsers})
+        io.broadcast.emit('login',  {"username":username, "numUsers": connectedUsers});
     })
 
     socket.on('typing', function(data) {
         console.log("user " + data.username + " is typing");
-        io.sockets.emit('typing', data);
+        io.broadcast.emit('typing', data);
     })
 
     socket.on('stop typing', function(data) {
         console.log("stop typing");
         console.log(data);
-        io.sockets.emit("stop typing", data);
+        io.broadcast.emit("stop typing", data);
     })
 
     socket.on('new message', function(data) {
         console.log(data);
         console.log('new message, message: ' + data.message);
-        io.sockets.emit('new message', data);
+        io.broadcast.emit('new message', data);
     })
 
     socket.on('user left', function(data) {
         console.log('user left');
         console.log(data);
-        io.sockets.emit('user left', data);
+        io.broadcast.emit('user left', data);
     })
 
     socket.on('disconnect', function() {
