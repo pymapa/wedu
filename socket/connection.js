@@ -20,21 +20,14 @@ module.exports = function (app, io) {
 
         socket.on('stop typing', function () {
             console.log("stop typing");
-            console.log(data);
             socket.broadcast.emit("stop typing", {username: socket.username});
         })
 
         socket.on('new message', function (message) {
-            console.log(data);
             console.log('new message, message: ' + message);
             io.sockets.emit('new message', {
                 username: socket.username, 
                 message: message});
-        })
-
-        socket.on('user left', function (data) {
-            console.log('user left');
-            
         })
 
         socket.on('disconnect', function () {
