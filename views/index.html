@@ -44,7 +44,7 @@
             $('form').on('submit', function (e) {
                 e.preventDefault();
                 var message = $('#message').val();
-                socket.emit('new message', {'username': 'pyry', 'message': message});
+                socket.emit('new message', {'message': message});
             })
         })
     </script>

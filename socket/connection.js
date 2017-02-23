@@ -2,38 +2,30 @@ module.exports = function (app, io) {
 
     var connectedUsers = 0;
     io.sockets.on('connection', function (socket) {
-        connectedUsers++;
+        var userLogged = false;
 
         socket.on('add user', function (data) {
+            if (userLogged) return;
             console.log("add user");
+            connectedUsers++;
+            userLogged = true;
             socket.username = data.username;
             socket.broadcast.emit('user joined', { username: socket.username, numUsers: connectedUsers })
             socket.emit('login', { numUsers: connectedUsers });
         })
 
-        socket.on('typing', function () {
-            console.log("typing");
-            socket.broadcast.emit('typing', {username: socket.username});
-        })
-
-        socket.on('stop typing', function () {
-            console.log("stop typing");
-            socket.broadcast.emit("stop typing", {username: socket.username});
-        })
-
-        socket.on('new message', function (data) {
-            console.log("new message");
-            io.sockets.emit('new message', {
-                username: socket.username, 
-                message: data.message});
-        })
+        require('./messages')(io, socket);
 
         socket.on('disconnect', function () {
             console.log("disconnect");
-            connectedUsers--;
-            socket.broadcast.emit('user left', {
-                username: socket.username, 
-                numUsers: connectedUsers});
+            if (userLogged) {
+                connectedUsers--;
+                socket.broadcast.emit('user left', {
+                    username: socket.username,
+                    numUsers: connectedUsers
+                });
+            }
+
         })
     })
 
