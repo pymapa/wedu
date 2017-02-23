@@ -7,36 +7,41 @@ module.exports = function (app, io) {
         console.log("connected users: " + connectedUsers);
 
         socket.on('add user', function (username) {
+            socket.username = username;
             console.log("add user: " + username);
-            socket.broadcast.emit('user joined', { "username": username, "numUsers": connectedUsers })
-            socket.emit('login', { "username": username, "numUsers": connectedUsers });
+            socket.broadcast.emit('user joined', { numUsers: connectedUsers })
+            socket.emit('login', { numUsers: connectedUsers });
         })
 
-        socket.on('typing', function (data) {
-            console.log("user " + data.username + " is typing");
-            socket.broadcast.emit('typing', data);
+        socket.on('typing', function () {
+            console.log("user " + socket.username + " is typing");
+            socket.broadcast.emit('typing', {username: socket.username});
         })
 
-        socket.on('stop typing', function (data) {
+        socket.on('stop typing', function () {
             console.log("stop typing");
             console.log(data);
-            socket.broadcast.emit("stop typing", data);
+            socket.broadcast.emit("stop typing", {username: socket.username});
         })
 
-        socket.on('new message', function (data) {
+        socket.on('new message', function (message) {
             console.log(data);
-            console.log('new message, message: ' + data.message);
-            io.sockets.emit('new message', data);
+            console.log('new message, message: ' + message);
+            io.sockets.emit('new message', {
+                username: socket.username, 
+                message: message});
         })
 
         socket.on('user left', function (data) {
             console.log('user left');
-            console.log(data);
-            socket.broadcast.emit('user left', data);
+            
         })
 
         socket.on('disconnect', function () {
             console.log("user disconnected");
+            socket.broadcast.emit('user left', {
+                username: socket.username, 
+                numUsers: connectedUsers});
             connectedUsers--;
         })
     })
