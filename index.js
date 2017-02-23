@@ -12,7 +12,8 @@ app.use(bodyParser.json());
 
 //Serve static files from public-folder
 app.use(express.static('public'));
-app.use(express.static('views'));
+app.use(express.static('client'));
+// app.use(express.static('views'));
 
 //Sockets
 require('./socket/connection')(app, io);

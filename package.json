@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index",
-    "dev": "nodemon index"
+    "dev": "nodemon index",
+    "watch": "webpack -d --watch",
+    "build": "webpack -p"
   },
   "author": "Pyry Pajunpää, Sami Nieminen, Anna Paloposki",
   "license": "ISC",
