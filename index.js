@@ -21,10 +21,10 @@ io.sockets.on('connection', function(socket) {
     console.log('user connected');
     console.log("connected users: " + connectedUsers);
 
-    socket.on('add user', function(data) {
-        console.log("add user: " + data);
-        socket.broadcast.emit('user joined', {"username":data, "numUsers": connectedUsers})
-        socket.emit('login', data);
+    socket.on('add user', function(username) {
+        console.log("add user: " + username);
+        socket.broadcast.emit('user joined', {"username":username, "numUsers": connectedUsers})
+        socket.emit('login',  {"username":username, "numUsers": connectedUsers});
     })
 
     socket.on('typing', function(data) {
