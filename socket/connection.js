@@ -25,10 +25,10 @@ module.exports = function (app, io) {
         })
 
         socket.on('disconnect', function () {
+            connectedUsers--;
             socket.broadcast.emit('user left', {
                 username: socket.username, 
                 numUsers: connectedUsers});
-            connectedUsers--;
         })
     })
 
