@@ -26,7 +26,7 @@ module.exports = function () {
         .then(function(data) {
             console.log("message saved");
             console.log(data._id);
-            callback(false, data._id);
+            callback(false, message);
         }, function(error) {
             callback(true, error);
         })

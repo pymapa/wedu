@@ -14,8 +14,12 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.use(express.static('views'));
 
+//Sockets
 require('./socket/connection')(app, io);
 
+//REST-api
+require('./api/course-api')(app);
+require('./api/message-api')(app);
 
 app.get('/', function(req, res) {
     res.sendFile('index.html');
