@@ -22,7 +22,7 @@ module.exports = function (io, socket) {
                 io.sockets.emit('new message', {
                     username: data.user,
                     message: message.message,
-                    upvotes: data.upvotes,
+                    grade: data.grade,
                     course: data.course,
                     solved: data.solved,
                     type: data.type,
@@ -33,5 +33,28 @@ module.exports = function (io, socket) {
             }
         });
 
+    })
+
+    socket.on('upvote', function (data) {
+        data.user = socket.username;
+        data._id = data.messageId;
+        messageService.upvoteMessage(data, function (err, data) {
+            io.sockets.emit('upvote', {
+                messageId: data._id,
+                grade: data.grade
+            })
+        })
+
+    })
+
+    socket.on('downvote', function (data) {
+        data.user = socket.username;
+        data._id = data.messageId;
+        messageService.downvoteMessage(data, function (err, data) {
+            io.sockets.emit('downvote', {
+                messageId: data._id,
+                grade: data.grade
+            })
+        })
     })
 }

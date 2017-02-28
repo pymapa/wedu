@@ -32,6 +32,32 @@ module.exports = {
                 console.log(error);
                 callback(true, error);
             })
+    },
+
+    upvoteMessage: function(data, callback) {
+        Message.findOne({_id: data._id})
+        .then(function(message) {
+            message.grade.upvotes.push(data.username);
+            message.save()
+            .then(function(data) {
+                callback(false, message)
+            }, function(err) {
+                callback(true, err);
+            })
+        })
+    },
+
+    downvoteMessage: function(data, callback) {
+        Message.findOne({_id: data._id})
+        .then(function(message) {
+            message.grade.downvotes.push(data.username);
+            message.save()
+            .then(function(data) {
+                callback(false, message)
+            }, function(err) {
+                callback(true, err)
+            })
+        })
     }
 
 }
