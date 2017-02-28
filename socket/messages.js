@@ -39,7 +39,7 @@ module.exports = function (io, socket) {
         data.user = socket.username;
         data._id = data.messageId;
         messageService.upvoteMessage(data, function (err, data) {
-            io.sockets.emit('upvote', {
+            io.sockets.emit('voted', {
                 messageId: data._id,
                 grade: data.grade
             })
@@ -51,7 +51,7 @@ module.exports = function (io, socket) {
         data.user = socket.username;
         data._id = data.messageId;
         messageService.downvoteMessage(data, function (err, data) {
-            io.sockets.emit('downvote', {
+            io.sockets.emit('voted', {
                 messageId: data._id,
                 grade: data.grade
             })
