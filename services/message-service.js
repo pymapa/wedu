@@ -29,7 +29,7 @@ module.exports = {
                 console.log(data._id);
                 callback(false, message);
             }, function (error) {
-                console.log("error");
+                console.log(error);
                 callback(true, error);
             })
     }
