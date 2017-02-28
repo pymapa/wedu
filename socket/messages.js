@@ -26,7 +26,8 @@ module.exports = function (io, socket) {
                     course: data.course,
                     solved: data.solved,
                     type: data.type,
-                    created: data.created,
+                    createdJS: data.created,
+                    created: data.created.getTime(),
                     _id: data._id
                 });
             }
