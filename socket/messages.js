@@ -23,6 +23,10 @@ module.exports = function (io, socket) {
                     username: data.user,
                     message: message.message,
                     upvotes: data.upvotes,
+                    course: data.course,
+                    solved: data.solved,
+                    type: data.type,
+                    created: data.created,
                     _id: data._id
                 });
             }
