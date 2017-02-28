@@ -7,8 +7,8 @@ var messageSchema = new mongoose.Schema({
     user: {type: String},
     created: {type: Date, default: Date.now},
     grade: {
-        upvotes: {type: [String]},
-        downvotes: {type: [String]}
+        upvotes: {type: [String], default: []},
+        downvotes: {type: [String], default: []}
     },
     type: {type: Number, required: true, default: 1 },
     solved: {type: Boolean, default: false},
