@@ -21,7 +21,7 @@ module.exports = {
             course: data.course,
             lecture: data.lecture,
             user: data.user,
-            category: data.category
+            type: data.type
         });
         message.save()
             .then(function (data) {

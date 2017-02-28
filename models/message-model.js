@@ -7,7 +7,7 @@ var messageSchema = new mongoose.Schema({
     user: {type: String},
     created: {type: Date, default: Date.now},
     upvotes: {type: Number, default: 0},
-    category: {type: String, required: true },
+    type: {type: String, required: true },
     solved: {type: Boolean, default: false},
     thread: {
         messages: []
