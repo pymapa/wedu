@@ -14,6 +14,7 @@ module.exports = {
     // Save message. callback false if success, true if error
     // Return message _id
     newMessage: function (data, callback) {
+        console.log("in service");
         if (!data.lecture) data.lecture = "";
         var message = new Message({
             message: data.message,
@@ -28,6 +29,7 @@ module.exports = {
                 console.log(data._id);
                 callback(false, message);
             }, function (error) {
+                console.log("error");
                 callback(true, error);
             })
     }
