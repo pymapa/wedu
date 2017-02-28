@@ -6,7 +6,7 @@ var messageSchema = new mongoose.Schema({
     lecture: {type: String, required: false},
     user: {type: String},
     created: {type: Date, default: Date.now},
-    grade: {type: Number, default: 0},
+    upvotes: {type: Number, default: 0},
     category: {type: String, required: true },
     solved: {type: Boolean, default: false},
     thread: {
