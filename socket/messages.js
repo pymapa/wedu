@@ -12,7 +12,6 @@ module.exports = function (io, socket) {
     })
 
     socket.on('new message', function (message) {
-        console.log("new message");
         // Message to db
         message.user = socket.username;
         messageService.newMessage(message, function (err, data) {
@@ -20,7 +19,7 @@ module.exports = function (io, socket) {
                 console.log("new message, in callback");
                 console.log(data);
                 io.sockets.emit('new message', {
-                    username: data.user,
+                    user: data.user,
                     message: message.message,
                     grade: data.grade,
                     course: data.course,
@@ -30,6 +29,8 @@ module.exports = function (io, socket) {
                     created: data.created.getTime(),
                     _id: data._id
                 });
+            } else {
+                console.log("new message, in error " + err);
             }
         });
 
