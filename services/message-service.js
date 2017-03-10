@@ -14,8 +14,8 @@ module.exports = {
     getMessage: function (questionId, callback) {
         // console.log("get message " + questionId);
         Message.findOne({ _id: questionId })
-            .then(function (message) {
-                callback(false, message);
+            .then(function (data) {
+                callback(false, data);
             }, function(error) {
                 callback(true, error);
             });
