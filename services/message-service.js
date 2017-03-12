@@ -2,8 +2,20 @@ var Message = require('./../models/message-model');
 
 module.exports = {
 
+    TYPE_QUESTION: 1,
+    TYPE_MESSGE: 2,
+
+    getQuestions: function(callback) {
+        Message.find({type: this.TYPE_QUESTION})
+            .then(function (data) {
+                callback(false, data);
+            }, function (error) {
+                callback(true, error)
+            })
+    },
+
     getMessages: function (callback) {
-        Message.find({})
+        Message.find({type: this.TYPE_MESSAGE})
             .then(function (data) {
                 callback(false, data);
             }, function (error) {
@@ -16,7 +28,7 @@ module.exports = {
         Message.findOne({ _id: questionId })
             .then(function (data) {
                 callback(false, data);
-            }, function(error) {
+            }, function (error) {
                 callback(true, error);
             });
     },
@@ -33,6 +45,7 @@ module.exports = {
             user: data.user,
             type: data.type
         });
+
         message.save()
             .then(function (data) {
                 console.log("message saved");
@@ -69,5 +82,18 @@ module.exports = {
                         callback(true, err)
                     })
             })
+    },
+
+    addMessageToQuestion: function (questionId, message, callback) {
+        Message.findOne({ _id: questionId })
+            .then(function (question) {
+                question.thread.messages.push(message);
+                question.save()
+                    .then(function (data) {
+                        callback(false, data)
+                    }, function (err) {
+                        callback(true, err);
+                    })
+            });
     }
 }
