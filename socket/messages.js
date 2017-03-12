@@ -22,6 +22,7 @@ module.exports = function (io, socket) {
             if (!err) {
                 console.log("new message, in callback");
 
+                // No need to send threads 
                 let newMessage = {
                     user: data.user,
                     message: data.message,
@@ -29,9 +30,8 @@ module.exports = function (io, socket) {
                     course: data.course,
                     solved: data.solved,
                     type: data.type,
-                    thread: data.thread,
                     createdJS: data.created,
-                    created: data.created.getTime(),
+                    created: data.created,
                     _id: data._id
                 };
 

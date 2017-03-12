@@ -8,18 +8,20 @@ module.exports = function (app) {
             console.log("error? " + err);
             if (!err) {
 
-                let message = {
-                    user: data.user,
-                    message: data.message,
-                    grade: data.grade,
-                    course: data.course,
-                    solved: data.solved,
-                    type: data.type,
-                    thread: data.thread,
-                    created: data.created.getTime(),
-                    _id: data._id
-                };
-                res.status(200).send(message);
+                //Earlier Android handled only long value for created. But that is now fixed
+
+                // let message = {
+                //     user: data.user,
+                //     message: data.message,
+                //     grade: data.grade,
+                //     course: data.course,
+                //     solved: data.solved,
+                //     type: data.type,
+                //     thread: data.thread,
+                //     created: data.created.getTime(),
+                //     _id: data._id
+                // };
+                res.status(200).send(data);
             } else {
                 res.status(404).send({
                     "error": "resource not found: ",
@@ -46,6 +48,7 @@ module.exports = function (app) {
     })
 
 
+    // ONLY FOR TESTING WITH POSTMAN
     app.post('/test/message/newMessage', function (req, res) {
 
         let message = req.body;
