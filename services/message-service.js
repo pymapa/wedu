@@ -48,7 +48,7 @@ module.exports = {
         console.log("upvote");
         Message.findOne({ _id: data._id })
             .then(function (message) {
-                message.grade.upvotes.push(data.username);
+                message.grade.upvotes.push(data.user);
                 message.save()
                     .then(function (data) {
                         callback(false, message)
@@ -61,7 +61,7 @@ module.exports = {
     downvoteMessage: function (data, callback) {
         Message.findOne({ _id: data._id })
             .then(function (message) {
-                message.grade.downvotes.push(data.username);
+                message.grade.downvotes.push(data.user);
                 message.save()
                     .then(function (data) {
                         callback(false, message)
