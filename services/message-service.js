@@ -2,8 +2,23 @@ var Message = require('./../models/message-model');
 
 module.exports = {
 
-    getMessages: function (callback) {
-        Message.find({})
+    TYPE_QUESTION: 1,
+    TYPE_MESSGE: 2,
+
+    getQuestions: function(callback) {
+        Message.find({type: this.TYPE_QUESTION})
+            .then(function (data) {
+                callback(false, data);
+            }, function (error) {
+                callback(true, error)
+            })
+    },
+
+    /**
+     * Get messages from thread of the single question
+     */
+    getMessages: function (questionId, callback) {
+        Message.findOne({_id: questionId}).select({thread:1})
             .then(function (data) {
                 callback(false, data);
             }, function (error) {
@@ -12,11 +27,10 @@ module.exports = {
     },
 
     getMessage: function (questionId, callback) {
-        // console.log("get message " + questionId);
         Message.findOne({ _id: questionId })
             .then(function (data) {
                 callback(false, data);
-            }, function(error) {
+            }, function (error) {
                 callback(true, error);
             });
     },
@@ -33,6 +47,7 @@ module.exports = {
             user: data.user,
             type: data.type
         });
+
         message.save()
             .then(function (data) {
                 console.log("message saved");
@@ -48,7 +63,7 @@ module.exports = {
         console.log("upvote");
         Message.findOne({ _id: data._id })
             .then(function (message) {
-                message.grade.upvotes.push(data.username);
+                message.grade.upvotes.push(data.user);
                 message.save()
                     .then(function (data) {
                         callback(false, message)
@@ -61,7 +76,7 @@ module.exports = {
     downvoteMessage: function (data, callback) {
         Message.findOne({ _id: data._id })
             .then(function (message) {
-                message.grade.downvotes.push(data.username);
+                message.grade.downvotes.push(data.user);
                 message.save()
                     .then(function (data) {
                         callback(false, message)
@@ -69,5 +84,18 @@ module.exports = {
                         callback(true, err)
                     })
             })
+    },
+
+    addMessageToQuestion: function (questionId, message, callback) {
+        Message.findOne({ _id: questionId })
+            .then(function (question) {
+                question.thread.messages.push(message);
+                question.save()
+                    .then(function (data) {
+                        callback(false, data)
+                    }, function (err) {
+                        callback(true, err);
+                    })
+            });
     }
 }

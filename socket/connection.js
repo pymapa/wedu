@@ -9,8 +9,8 @@ module.exports = function (app, io) {
             console.log("add user");
             connectedUsers++;
             userLogged = true;
-            socket.username = data.username;
-            socket.broadcast.emit('user joined', { username: socket.username, numUsers: connectedUsers })
+            socket.user = data.user;
+            socket.broadcast.emit('user joined', { user: socket.user, numUsers: connectedUsers })
             socket.emit('login', { numUsers: connectedUsers });
         })
 
@@ -21,7 +21,7 @@ module.exports = function (app, io) {
             if (userLogged) {
                 connectedUsers--;
                 socket.broadcast.emit('user left', {
-                    username: socket.username,
+                    user: socket.user,
                     numUsers: connectedUsers
                 });
             }
