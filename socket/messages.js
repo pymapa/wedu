@@ -19,10 +19,10 @@ module.exports = function (io, socket) {
         // Message to db
         message.user = socket.user;
         messageService.newMessage(message, function (err, data) {
+
             if (!err) {
                 console.log("new message, in callback");
 
-                // No need to send threads 
                 let newMessage = {
                     user: data.user,
                     message: data.message,
@@ -41,24 +41,32 @@ module.exports = function (io, socket) {
                  * TYPE_MESSAGE has to have id of it's parent
                  **/
                 if (newMessage.type === messageService.TYPE_QUESTION) {
-                    io.sockets.emit('new message', newMessage);
+                    res.status(200).send(newMessage);
+                    console.log("test new message: added question");
+                    // io.sockets.emit('new message', newMessage);
 
                 } else if (newMessage.type === messageService.TYPE_MESSGE) {
-                    messageService.addMessageToQuestion(message.questionId, message,
-                        function (err, data) {
-                            if (!err) {
-                                console.log("message added to a thread " + data);
-                            } else {
-                                console.log("new message, in error " + err);
-                            }
-                        });
+                    if (message.questionId !== undefined || message.questionId.length > 0) {
+                        messageService.addMessageToQuestion(message.questionId, newMessage,
+                            function (err, data) {
+                                if (!err) {
+                                    console.log("message added to a thread " + data);
+                                    res.status(200).send(data);
+                                } else {
+                                    console.log("new message, in error " + err);
+                                    res.status(404).send(err);
+                                }
+                            });
+                    }
+                } else {
+                    res.status(404).send("Something went wrong");
                 }
             } else {
                 console.log("new message, in error " + err);
             }
-        })
-
+        });
     })
+
 
     socket.on('upvote', function (data) {
         data.user = socket.user;

@@ -14,8 +14,11 @@ module.exports = {
             })
     },
 
-    getMessages: function (callback) {
-        Message.find({type: this.TYPE_MESSAGE})
+    /**
+     * Get messages from thread of the single question
+     */
+    getMessages: function (questionId, callback) {
+        Message.findOne({_id: questionId}).select({thread:1})
             .then(function (data) {
                 callback(false, data);
             }, function (error) {

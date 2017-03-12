@@ -31,8 +31,9 @@ module.exports = function (app) {
         })
     })
 
-    app.get('/message/getMessages', function (req, res) {
-        messageService.getMessages(function (err, data) {
+    app.get('/message/getMessages/:questionId', function (req, res) {
+        let questionId = req.params.questionId;
+        messageService.getMessages(questionId, function (err, data) {
             res.status(200).send(data);
         }, function (err) {
             res.status(404).send({ "error": "resources not found" });
