@@ -5,7 +5,6 @@ module.exports = function (app) {
     app.get('/message/getMessage/:id', function (req, res) {
         let questionId = req.params.id;
         messageService.getMessage(questionId, function (err, data) {
-            console.log("error? " + err);
             if (!err) {
 
                 //Earlier Android handled only long value for created. But that is now fixed
@@ -42,6 +41,7 @@ module.exports = function (app) {
 
     app.get('/message/getQuestions', function (req, res) {
         messageService.getQuestions(function (err, data) {
+            console.log("data fetched");
             res.status(200).send(data);
         }, function (err) {
             res.status(404).send({ "error": "resources not found" });
@@ -88,8 +88,21 @@ module.exports = function (app) {
                         messageService.addMessageToQuestion(message.questionId, newMessage,
                             function (err, data) {
                                 if (!err) {
-                                    console.log("message added to a thread " + data);
-                                    res.status(200).send(data);
+                                    let newlyAddedMessage = {
+                                        user: data.user,
+                                        message: data.message,
+                                        grade: data.grade,
+                                        course: data.course,
+                                        solved: data.solved,
+                                        type: data.type,
+                                        createdJS: data.created,
+                                        thread: data.thread,
+                                        created: data.created.getTime(),
+                                        _id: data._id
+                                    };
+                                    console.log(newlyAddedMessage);
+
+                                    res.status(200).send(newlyAddedMessage);
                                 } else {
                                     console.log("new message, in error " + err);
                                     res.status(404).send(err);

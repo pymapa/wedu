@@ -92,7 +92,7 @@ module.exports = {
                 question.thread.messages.push(message);
                 question.save()
                     .then(function (data) {
-                        callback(false, data)
+                        callback(false, message);
                     }, function (err) {
                         callback(true, err);
                     })

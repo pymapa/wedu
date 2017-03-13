@@ -41,22 +41,22 @@ module.exports = function (io, socket) {
                  * TYPE_MESSAGE has to have id of it's parent
                  **/
                 if (newMessage.type === messageService.TYPE_QUESTION) {
-                    res.status(200).send(newMessage);
                     console.log("test new message: added question");
-                    // io.sockets.emit('new message', newMessage);
+                    io.sockets.emit('new message', newMessage);
 
                 } else if (newMessage.type === messageService.TYPE_MESSGE) {
                     if (message.questionId !== undefined || message.questionId.length > 0) {
                         messageService.addMessageToQuestion(message.questionId, newMessage,
                             function (err, data) {
                                 if (!err) {
-                                    console.log("message added to a thread " + data);
-                                    res.status(200).send(data);
+                                    console.log("message added to a thread " + newMessage);
+                                    io.sockets.emit('new message', newMessage);
                                 } else {
                                     console.log("new message, in error " + err);
-                                    res.status(404).send(err);
                                 }
                             });
+                    } else {
+                        console.log("")
                     }
                 } else {
                     res.status(404).send("Something went wrong");
