@@ -49,8 +49,8 @@ module.exports = function (io, socket) {
                         messageService.addMessageToQuestion(message.questionId, newMessage,
                             function (err, data) {
                                 if (!err) {
-                                    console.log("message added to a thread " + data);
-                                    io.sockets.emit('new message', data);
+                                    console.log("message added to a thread " + newMessage);
+                                    io.sockets.emit('new message', newMessage);
                                 } else {
                                     console.log("new message, in error " + err);
                                 }

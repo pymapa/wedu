@@ -88,8 +88,21 @@ module.exports = function (app) {
                         messageService.addMessageToQuestion(message.questionId, newMessage,
                             function (err, data) {
                                 if (!err) {
-                                    console.log("message added to a thread " + data);
-                                    res.status(200).send(data);
+                                    let newlyAddedMessage = {
+                                        user: data.user,
+                                        message: data.message,
+                                        grade: data.grade,
+                                        course: data.course,
+                                        solved: data.solved,
+                                        type: data.type,
+                                        createdJS: data.created,
+                                        thread: data.thread,
+                                        created: data.created.getTime(),
+                                        _id: data._id
+                                    };
+                                    console.log(newlyAddedMessage);
+
+                                    res.status(200).send(newlyAddedMessage);
                                 } else {
                                     console.log("new message, in error " + err);
                                     res.status(404).send(err);
