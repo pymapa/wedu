@@ -5,7 +5,6 @@ module.exports = function (app) {
     app.get('/message/getMessage/:id', function (req, res) {
         let questionId = req.params.id;
         messageService.getMessage(questionId, function (err, data) {
-            console.log("error? " + err);
             if (!err) {
 
                 //Earlier Android handled only long value for created. But that is now fixed
@@ -42,6 +41,7 @@ module.exports = function (app) {
 
     app.get('/message/getQuestions', function (req, res) {
         messageService.getQuestions(function (err, data) {
+            console.log("data fetched");
             res.status(200).send(data);
         }, function (err) {
             res.status(404).send({ "error": "resources not found" });
