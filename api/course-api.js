@@ -11,4 +11,14 @@ module.exports = function(app) {
             }
         })
     })
+
+    app.get('/course/getCourseByTag/:tag', function(req, res) {
+        courseService.getCourseByTag(req.params.tag, function(err, data) {
+            if(!err) {
+                res.status(200).send(data);
+            } else {
+                res.status(500).send(data);
+            }
+        })
+    })
 }

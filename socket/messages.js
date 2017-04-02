@@ -20,6 +20,7 @@ module.exports = function (io, socket) {
     socket.on('new message', function (message) {
         // Message to db
         message.user = socket.user;
+        message.course = socket.course;
         messageService.newMessage(message, function (err, data) {
 
             if (!err) {
@@ -44,7 +45,8 @@ module.exports = function (io, socket) {
                  **/
                 if (newMessage.type === messageService.TYPE_QUESTION) {
                     console.log("test new message: added question");
-                    io.sockets.emit('new message', newMessage);
+                    // io.sockets.emit('new message', newMessage);
+                    io.to(socket.course).emit('new message', newMessage);
 
                 } else if (newMessage.type === messageService.TYPE_MESSGE) {
                     if (message.questionId !== undefined || message.questionId.length > 0) {

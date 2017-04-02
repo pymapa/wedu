@@ -4,6 +4,10 @@ module.exports = function (app) {
     // needed for let -variable devinitions
     "use strict";
 
+    app.get('/message/getMessagesByCourseTag/:tag', function(req, res) {
+        
+    })
+
     app.get('/message/getMessage/:id', function (req, res) {
         let questionId = req.params.id;
         messageService.getMessage(questionId, function (err, data) {

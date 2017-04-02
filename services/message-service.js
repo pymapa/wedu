@@ -14,6 +14,11 @@ module.exports = {
             })
     },
 
+    // Messages by course tag
+    getMessagesByCourseTag: function(tag, callback) {
+        
+    },
+
     /**
      * Get messages from thread of the single question
      */

@@ -12,6 +12,11 @@ module.exports = {
     },
 
     getCourseByTag: function(tag, callback) {
-        Course.find({})
+        Course.find({"tag": tag})
+        .then(function(data) {
+            callback(false, data)
+        }, function(err) {
+            callback(true, err);
+        })
     }
 }

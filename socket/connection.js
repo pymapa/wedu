@@ -14,6 +14,12 @@ module.exports = function (app, io) {
             socket.emit('login', { numUsers: connectedUsers });
         })
 
+        socket.on('select course', function(data) {
+            console.log("select course");
+            socket.join(data.course);
+            socket.course = data.course;
+        })
+
         require('./messages')(io, socket);
 
         socket.on('disconnect', function () {
