@@ -1,6 +1,8 @@
 var messageService = require('./../services/message-service');
 
 module.exports = function (io, socket) {
+    "use strict";
+    
     socket.on('typing', function () {
         console.log("typing");
         socket.broadcast.emit('typing', { user: socket.user });

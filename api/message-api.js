@@ -1,6 +1,8 @@
 var messageService = require('./../services/message-service');
 
 module.exports = function (app) {
+    // needed for let -variable devinitions
+    "use strict";
 
     app.get('/message/getMessage/:id', function (req, res) {
         let questionId = req.params.id;
