@@ -15,8 +15,13 @@ module.exports = {
     },
 
     // Messages by course tag
-    getMessagesByCourseTag: function(tag, callback) {
-        
+    getMessagesByCourseId: function(_id, callback) {
+        Message.find({"course": _id})
+        .then(function (data) {
+                callback(false, data);
+            }, function (error) {
+                callback(true, error)
+            })
     },
 
     /**

@@ -2,21 +2,31 @@ var Course = require('./../models/course-model');
 
 module.exports = {
 
-    getCourses: function(callback) {
+    getCourses: function (callback) {
         Course.find({})
-        .then(function(data) {
-            callback(false, data);
-        }, function(err) {
-            callback(true, err);
-        })
+            .then(function (data) {
+                callback(false, data);
+            }, function (err) {
+                callback(true, err);
+            })
     },
 
-    getCourseByTag: function(tag, callback) {
-        Course.find({"tag": tag})
-        .then(function(data) {
-            callback(false, data)
-        }, function(err) {
-            callback(true, err);
-        })
+    getCourseByTagOrId: function (tag, _id, callback) {
+        if (tag != null) {
+            Course.find({ "tag": tag })
+                .then(function (data) {
+                    callback(false, data)
+                }, function (err) {
+                    callback(true, err);
+                })
+        } else {
+            Course.find({ "_id": _id })
+                .then(function (data) {
+                    callback(false, data)
+                }, function (err) {
+                    callback(true, err);
+                })
+        }
+
     }
 }
