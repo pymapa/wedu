@@ -16,7 +16,7 @@ module.exports = function (app, io) {
 
         socket.on('select room', function(data) {
             console.log("select course");
-            socket.join(data.course);
+            socket.join(data.room);
             socket.room = data.room;
         })
 
