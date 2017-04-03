@@ -54,7 +54,7 @@ module.exports = function (io, socket) {
                             function (err, data) {
                                 if (!err) {
                                     console.log("message added to a thread " + newMessage);
-                                    io.sockets.emit('new message', newMessage);
+                                    io.to(socket.course).emit('new message', newMessage);
                                 } else {
                                     console.log("new message, in error " + err);
                                 }

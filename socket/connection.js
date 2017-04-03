@@ -14,10 +14,10 @@ module.exports = function (app, io) {
             socket.emit('login', { numUsers: connectedUsers });
         })
 
-        socket.on('select course', function(data) {
+        socket.on('select room', function(data) {
             console.log("select course");
             socket.join(data.course);
-            socket.course = data.course;
+            socket.room = data.room;
         })
 
         require('./messages')(io, socket);
