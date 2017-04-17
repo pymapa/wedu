@@ -25,6 +25,7 @@ coverage
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
+client/build
 
 # Dependency directories
 node_modules
@@ -38,3 +39,19 @@ jspm_packages
 
 # Vscode
 .vscode/
+
+#Client
+
+# dependencies
+client/node_modules
+
+# testing
+client/coverage
+
+# production
+client/build
+
+# misc
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*

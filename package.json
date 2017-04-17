@@ -5,16 +5,24 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index",
-    "dev": "nodemon index"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon index.js",
+    "client": "babel-node start-client.js",
+    "postinstall": "cd client && npm run build"
   },
   "author": "Pyry Pajunpää, Sami Nieminen, Anna Paloposki",
   "license": "ISC",
   "dependencies": {
+    "babel-cli": "6.14.0",
+    "babel-core": "6.14.0",
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
     "mongoose": "^4.8.4",
     "morgan": "^1.8.1",
     "socket.io": "^1.7.2"
+  },
+  "devDependencies": {
+    "concurrently": "^3.4.0"
   }
 }

@@ -17,13 +17,12 @@ mongoose.connection.on('error', function() {
   console.info('Error: Could not connect to MongoDB ' + config.database);
 })
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
-//Serve static files from public-folder
-app.use(express.static('public'));
-app.use(express.static('views'));
+//Built client is served. In development there's webpack server in use.
+app.use(express.static('client/build'));
 
 //Sockets
 require('./socket/connection')(app, io);
