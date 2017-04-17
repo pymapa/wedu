@@ -5,12 +5,12 @@ module.exports = function (io, socket) {
     
     socket.on('typing', function () {
         console.log("typing");
-        socket.broadcast.emit('typing', { user: socket.user });
+        socket.broadcast.to(socket.room).emit('typing', { user: socket.user });
     })
 
     socket.on('stop typing', function () {
         console.log("stop typing");
-        socket.broadcast.emit("stop typing", { user: socket.user });
+        socket.broadcast.to(socket.room).emit("stop typing", { user: socket.user });
     })
 
     /** 
@@ -20,11 +20,13 @@ module.exports = function (io, socket) {
     socket.on('new message', function (message) {
         // Message to db
         message.user = socket.user;
-        message.course = socket.course;
+        message.course = socket.room;
         messageService.newMessage(message, function (err, data) {
 
             if (!err) {
                 console.log("new message, in callback");
+
+                console.log(data);
 
                 let newMessage = {
                     user: data.user,
@@ -46,7 +48,7 @@ module.exports = function (io, socket) {
                 if (newMessage.type === messageService.TYPE_QUESTION) {
                     console.log("test new message: added question");
                     // io.sockets.emit('new message', newMessage);
-                    io.to(socket.course).emit('new message', newMessage);
+                    io.sockets.to(socket.room).emit('new message', newMessage);
 
                 } else if (newMessage.type === messageService.TYPE_MESSGE) {
                     if (message.questionId !== undefined || message.questionId.length > 0) {
@@ -54,7 +56,7 @@ module.exports = function (io, socket) {
                             function (err, data) {
                                 if (!err) {
                                     console.log("message added to a thread " + newMessage);
-                                    io.to(socket.course).emit('new message', newMessage);
+                                    io.sockets.to(socket.room).emit('new message', newMessage);
                                 } else {
                                     console.log("new message, in error " + err);
                                 }

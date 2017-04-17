@@ -26,6 +26,7 @@ module.exports = function (app, io) {
             console.log("disconnect");
             if (userLogged) {
                 connectedUsers--;
+                socket.leave(socket.room);
                 socket.broadcast.emit('user left', {
                     user: socket.user,
                     numUsers: connectedUsers
