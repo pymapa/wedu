@@ -35,7 +35,7 @@ require('./api/course-api')(app);
 require('./api/message-api')(app);
 
 app.get('/', function(req, res) {
-    res.sendFile('index.html');
+    res.sendFile(path.join(__dirname + 'index.html'));
 })
 
 server.listen(app.get('port'), function() {
