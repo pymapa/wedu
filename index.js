@@ -34,7 +34,7 @@ require('./socket/connection')(app, io);
 require('./api/course-api')(app);
 require('./api/message-api')(app);
 
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname + '/client/build/index.html'));
 })
 
