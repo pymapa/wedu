@@ -20,7 +20,7 @@ mongoose.connection.on('error', function() {
   console.info('Error: Could not connect to MongoDB ' + config.database);
 })
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
