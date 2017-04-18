@@ -25,7 +25,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 
 //Built client is served. In development there's webpack server in use.
-app.use(express.static('client/build'));
+app.use(express.static(__dirname + '/client/build'));
 
 //Sockets
 require('./socket/connection')(app, io);
@@ -35,7 +35,7 @@ require('./api/course-api')(app);
 require('./api/message-api')(app);
 
 app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + 'index.html'));
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
 })
 
 server.listen(app.get('port'), function() {
