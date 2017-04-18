@@ -8,8 +8,7 @@
     "start": "node index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon index.js",
-    "client": "babel-node start-client.js",
-    "postinstall": "cd client && npm run build"
+    "client": "babel-node start-client.js"
   },
   "author": "Pyry Pajunpää, Sami Nieminen, Anna Paloposki",
   "license": "ISC",
