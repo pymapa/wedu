@@ -40,6 +40,9 @@ jspm_packages
 # Vscode
 .vscode/
 
+#env vars
+.env
+
 #Client
 
 # dependencies
