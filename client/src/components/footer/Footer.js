@@ -1,11 +1,35 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import './Footer.css';
+import user from '../../services/user/User-service';
 
 class Footer extends Component {
-    render () {
+    constructor(props) {
+        super(props);
+        this.state = {
+            signedIn: false
+        }
+    }
+    componentDidMount() {
+        if(user.isSignedIn()) {
+            this.setState({user: user.getUserName()});
+            this.setState({signedIn: true});
+        }
+    }
+
+    logout() {
+        user.logOut();
+    }
+
+    render() {
         return (
             <div className="container-fluid" id="footer-container">
-                <h2></h2>
+                <div className="row">
+                    <div className="col-sm-2 col-sm-offset-10">
+                        {this.state.signedIn ? "Signed in as " + this.state.user: ""}<br/>
+                        {this.state.signedIn ? <Link to="/" onClick={this.logout}>Sign out</Link>: this.state.user}
+                    </div>
+                </div>
             </div>
         )
     }

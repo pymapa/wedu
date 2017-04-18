@@ -13,14 +13,14 @@ module.exports = {
 
     getCourseByTagOrId: function (tag, _id, callback) {
         if (tag != null) {
-            Course.find({ "tag": tag })
+            Course.findOne({ "tag": tag })
                 .then(function (data) {
                     callback(false, data)
                 }, function (err) {
                     callback(true, err);
                 })
         } else {
-            Course.find({ "_id": _id })
+            Course.findOne({ "_id": _id })
                 .then(function (data) {
                     callback(false, data)
                 }, function (err) {
