@@ -17,7 +17,7 @@ class Courses extends Component {
 
     componentDidMount() {
         console.log("asdf")
-        fetch('http://localhost:3000/course/getCourses', {
+        fetch('/course/getCourses', {
             accept: 'application/json'
         })
             .then((res) => res.json())
