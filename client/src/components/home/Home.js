@@ -11,11 +11,14 @@ class Home extends Component {
         this.state = {
             signedIn: false,
             user: "",
-            course: ""
+            courseTag: "",
+            course: {},
+            message: ""
         }
         this.handleUserChange = this.handleUserChange.bind(this);
         this.signIn = this.signIn.bind(this);
         this.handleCourseChange = this.handleCourseChange.bind(this);
+        this.selectCourse = this.selectCourse.bind(this);
     }
 
     componentDidMount() {
@@ -35,18 +38,35 @@ class Home extends Component {
         this.setState({ user: e.target.value });
     }
     handleCourseChange(e) {
-        this.setState({ course: e.target.value });
+        this.setState({ courseTag: e.target.value });
+        this.setState({message: ""});
+    }
+    selectCourse(e) {
+        e.preventDefault();
+        fetch('/course/getCourseByTag/' + this.state.courseTag, {
+            accept: 'application/json'
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                this.setState({ course: data });
+            })
+            .catch((err) => {
+                this.setState({message: "Course not found"});
+                console.log(err);
+            })
+
     }
 
     render() {
         let courseInput = (
             <form onSubmit={this.selectCourse}>
-                <Input type="text" value={this.state.course} onChange={this.handleCourseChange} placeholder="Course tag" />
+                <Input type="text" value={this.state.courseTag} onChange={this.handleCourseChange} placeholder="Course tag" />
             </form>
         )
         let findCourse = (
             <Link to="/courses">
-                <h2>Find your course</h2>
+                <h3>Find your course</h3>
             </Link>
         )
         let signIn = (
@@ -57,6 +77,18 @@ class Home extends Component {
                     </div>
                 </div>
             </form>
+        )
+        let courseCard = (
+            <Link to={"/course/" + this.state.course._id}>
+            <div className="col-sm-8 col-sm-offset-2 course-card">
+                <div className="course-name">
+                        <h3>{this.state.course ? this.state.course.name: ""}</h3>
+                    </div>
+                    <div className="course-info">
+                        <p>Course tag: {this.state.course ? this.state.course.tag: ""}</p>
+                    </div>
+            </div>
+            </Link>
         )
         return (
             <div className="container vertical-center" id="home-container">
@@ -88,6 +120,11 @@ class Home extends Component {
                     <div className="col-sm-4 col-sm-offset-1">
                         {this.state.signedIn ? courseInput : ""}
                     </div>
+                </div>
+
+                <div className="row">
+                    {this.state.course._id ? courseCard: ""}
+                    {this.state.message}
                 </div>
             </div>
         )
