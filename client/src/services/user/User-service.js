@@ -18,7 +18,7 @@ let user = {
     },
 
     signIn: function(user) {
-        location.reload();
+        // location.reload();
         localStorage.setItem('user', user);
     }
 }

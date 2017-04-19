@@ -32,6 +32,7 @@ class Home extends Component {
         e.preventDefault();
         user.signIn(this.state.user)
         this.setState({ signedIn: true })
+        this.props.socket.emit('add user', {user: this.state.user});
     }
 
     handleUserChange(e) {

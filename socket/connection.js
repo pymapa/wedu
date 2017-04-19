@@ -2,11 +2,12 @@ module.exports = function (app, io) {
 
     var connectedUsers = 0;
     io.sockets.on('connection', function (socket) {
+        console.log("connection")
         var userLogged = false;
 
         socket.on('add user', function (data) {
+            console.log("add user " + data.user);
             if (userLogged) return;
-            console.log("add user");
             connectedUsers++;
             userLogged = true;
             socket.user = data.user;
@@ -15,7 +16,7 @@ module.exports = function (app, io) {
         })
 
         socket.on('select room', function(data) {
-            console.log("select course");
+            console.log("select course " + data.room);
             socket.join(data.room);
             socket.room = data.room;
         })

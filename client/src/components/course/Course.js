@@ -18,8 +18,8 @@ class Course extends Component {
         })
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
             this.setState({course: data});
+            this.props.socket.emit('select room', {room: data._id})
         })
         .catch((err) => {
             console.log(err);

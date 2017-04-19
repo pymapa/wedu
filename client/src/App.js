@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import { SocketProvider } from 'socket.io-react';
+import io from 'socket.io-client';
+
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import Home from './components/home/Home';
@@ -10,17 +13,22 @@ import Course from './components/course/Course';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 
+const socket = io.connect();
+
 class App extends Component {
   render() {
+    
     return (
       <div id="main-wrapper">
         <BrowserRouter>
           <div>
+            {/*<SocketProvider socket={socket}>*/}
             <Header />
-            <Route exact path="/" component={Home} />
-            <Route path="/courses" component={Courses} />
-            <Route path="/course/:_id" component={Course} />
+            <Route exact path="/" render={() => <Home socket={socket}/> } />
+            <Route path="/courses" render={() => <Courses socket={socket}/>} />
+            <Route path="/course/:_id" render={(props) => <Course socket={socket} {...props}/>} />
             <Footer />
+            {/*</SocketProvider>*/}
           </div>
         </BrowserRouter>
       </div>
