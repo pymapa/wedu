@@ -73,9 +73,9 @@ class Home extends Component {
         let signIn = (
             <form onSubmit={this.signIn}>
                 <div className="row">
-                    {/*<div className="col-sm-8 offset-sm-2">*/}
+                    <div className="col-sm-8 offset-sm-2">
                         <Input type="text" value={this.state.user} onChange={this.handleUserChange} placeholder="What's your name?" />
-                    {/*</div>*/}
+                    </div>
                 </div>
             </form>
         )
