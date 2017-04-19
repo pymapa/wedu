@@ -73,15 +73,15 @@ class Home extends Component {
         let signIn = (
             <form onSubmit={this.signIn}>
                 <div className="row">
-                    <div className="col-sm-8 col-sm-offset-2">
+                    {/*<div className="col-sm-8 offset-sm-2">*/}
                         <Input type="text" value={this.state.user} onChange={this.handleUserChange} placeholder="What's your name?" />
-                    </div>
+                    {/*</div>*/}
                 </div>
             </form>
         )
         let courseCard = (
             <Link to={"/course/" + this.state.course._id}>
-            <div className="col-sm-8 col-sm-offset-2 course-card">
+            <div className="col-sm-8 offset-sm-2 course-card">
                 <div className="course-name">
                         <h3>{this.state.course ? this.state.course.name: ""}</h3>
                     </div>
@@ -94,7 +94,7 @@ class Home extends Component {
         return (
             <div className="container vertical-center" id="home-container">
                 <div className="row">
-                    <div className="col-sm-12" id="welcome-box">
+                    <div className="col-12" id="welcome-box">
                         <h1><small>Welcome to</small></h1>
                         <h1>WEDU</h1>
                     </div>
@@ -104,7 +104,7 @@ class Home extends Component {
                 </div>
 
                 <div className="row">
-                    <div className="col-sm-8 col-sm-offset-2">
+                    <div className="col-sm-8 offset-sm-2">
                         {!this.state.signedIn ? signIn : ""}
                     </div>
                 </div>
@@ -114,11 +114,11 @@ class Home extends Component {
                         {this.state.signedIn ? findCourse : ""}
                     </div>
 
-                    <div className="col-sm-2 col-sm-offset-1 vertical-center">
+                    <div className="col-sm-2 offset-sm-1 vertical-center">
                         {this.state.signedIn ? <h3><small>OR...</small></h3> : ""}
                     </div>
 
-                    <div className="col-sm-4 col-sm-offset-1">
+                    <div className="col-sm-4 offset-sm-1">
                         {this.state.signedIn ? courseInput : ""}
                     </div>
                 </div>

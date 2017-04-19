@@ -25,10 +25,10 @@ class Footer extends Component {
         return (
             <div className="container-fluid" id="footer-container">
                 <div className="row">
-                    <div className="col-sm-2 col-sm-offset-5 vertical-center">
+                    <div className="col-sm-2 offset-sm-5 vertical-center">
                         <Link to="/">Home</Link>
                     </div>
-                    <div className="col-sm-2 col-sm-offset-3">
+                    <div className="col-sm-2 offset-sm-3">
                         {this.state.signedIn ? "Signed in as " + this.state.user: ""}<br/>
                         {this.state.signedIn ? <Link to="/" onClick={this.logout}>Sign out</Link>: this.state.user}
                     </div>

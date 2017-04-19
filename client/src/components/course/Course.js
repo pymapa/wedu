@@ -2,13 +2,15 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom';
 
 import Board from '../../components/board/Board';
+import Messages from './Messages';
 
 class Course extends Component {
     constructor (props) {
         super(props)
         this.state = {
             course: {},
-            user: localStorage.getItem('user')
+            user: localStorage.getItem('user'),
+            messages: []
         }
     }
 
@@ -24,6 +26,18 @@ class Course extends Component {
         .catch((err) => {
             console.log(err);
         })
+
+        fetch('/message/getMessagesByCourseId/' + this.props.match.params._id, {
+            accept: 'application/json'
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data)
+            this.setState({messages: data});
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
     render () {
@@ -32,6 +46,7 @@ class Course extends Component {
                 <h1>{this.state.course.name}</h1>
                 <h1><small>{this.state.course.tag}</small></h1>
 
+                <Messages messages={this.state.messages} />
                 <Board room={this.state.course._id} user={this.state.user} />
             </div>
         )
