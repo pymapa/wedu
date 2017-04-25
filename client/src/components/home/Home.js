@@ -32,7 +32,7 @@ class Home extends Component {
         e.preventDefault();
         user.signIn(this.state.user)
         this.setState({ signedIn: true })
-        this.props.socket.emit('add user', {user: this.state.user});
+        this.props.socket.emit('add user', { user: this.state.user });
     }
 
     handleUserChange(e) {
@@ -40,7 +40,7 @@ class Home extends Component {
     }
     handleCourseChange(e) {
         this.setState({ courseTag: e.target.value });
-        this.setState({message: ""});
+        this.setState({ message: "" });
     }
     selectCourse(e) {
         e.preventDefault();
@@ -53,7 +53,7 @@ class Home extends Component {
                 this.setState({ course: data });
             })
             .catch((err) => {
-                this.setState({message: "Course not found"});
+                this.setState({ message: "Course not found" });
                 console.log(err);
             })
 
@@ -80,15 +80,16 @@ class Home extends Component {
             </form>
         )
         let courseCard = (
-            <Link to={"/course/" + this.state.course._id}>
-            <div className="col-sm-8 offset-sm-2 course-card">
-                <div className="course-name">
-                        <h3>{this.state.course ? this.state.course.name: ""}</h3>
+            <Link to={"/course/" + this.state.course._id} className="col-sm-8 offset-sm-2" id="choose-course">
+                <div className="card">
+                    <div className="card-header">
+                        <p>Course tag: {this.state.course ? this.state.course.tag : ""}</p>
+
                     </div>
-                    <div className="course-info">
-                        <p>Course tag: {this.state.course ? this.state.course.tag: ""}</p>
+                    <div className="card-block">
+                        <p className="card-text">{this.state.course ? this.state.course.name : ""}</p>
                     </div>
-            </div>
+                </div>
             </Link>
         )
         return (
@@ -124,7 +125,7 @@ class Home extends Component {
                 </div>
 
                 <div className="row">
-                    {this.state.course._id ? courseCard: ""}
+                    {this.state.course._id ? courseCard : ""}
                     {this.state.message}
                 </div>
             </div>
