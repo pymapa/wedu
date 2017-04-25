@@ -12,7 +12,7 @@ class Input extends Component {
     }
 }
 
-Input.propTypes = {
+/*Input.propTypes = {
     label: React.PropTypes.string,
     palceholder: React.PropTypes.string,
     onChange: React.PropTypes.func,
@@ -23,5 +23,5 @@ Input.propTypes = {
     min: React.PropTypes.number,
     name: React.PropTypes.string
 }
-
+*/
 export default Input

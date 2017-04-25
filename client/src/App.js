@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { SocketProvider } from 'socket.io-react';
+// import { SocketProvider } from 'socket.io-react';
 import io from 'socket.io-client';
 
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -13,9 +13,20 @@ import Course from './components/course/Course';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 
+import user from './services/user/User-service';
+
 const socket = io.connect();
 
 class App extends Component {
+
+
+  componentDidMount() {
+    if(user.isSignedIn()) {
+      socket.emit('add user', {user: user.getUserName()});
+      console.log(user.getUserName())
+    }
+  }
+
   render() {
     
     return (

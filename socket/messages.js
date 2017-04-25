@@ -20,7 +20,7 @@ module.exports = function (io, socket) {
     socket.on('new message', function (message) {
         // Message to db
         message.user = socket.user;
-        message.course = socket.course;
+        message.room = socket.room;
         messageService.newMessage(message, function (err, data) {
 
             if (!err) {
@@ -30,7 +30,7 @@ module.exports = function (io, socket) {
                     user: data.user,
                     message: data.message,
                     grade: data.grade,
-                    course: data.course,
+                    room: data.room,
                     solved: data.solved,
                     type: data.type,
                     createdJS: data.created,

@@ -37,15 +37,15 @@ class Courses extends Component {
     render() {
         let courses = this.state.courses.map((course, i) => {
             return (
-                <Link to={"/course/" + course._id} key={i}>
-                <div className="course-card">
-                    <div className="course-name">
-                        <h3>{course.name}</h3>
+                <Link to={"/course/" + course._id} className="card" key={i}>
+                    <div className="card">
+                        <div className="card-header">
+                            <h3>{course.name}</h3>
+                        </div>
+                        <div className="card-block">
+                            <p className="card-text">Course tag: {course.tag}</p>
+                        </div>
                     </div>
-                    <div className="course-info">
-                        <p>Course tag: {course.tag}</p>
-                    </div>
-                </div>
                 </Link>
             )
         })
@@ -66,9 +66,5 @@ class Courses extends Component {
         )
     }
 }
-
-// Courses.propTypes = {
-
-// }
 
 export default Courses

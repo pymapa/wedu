@@ -1,23 +1,23 @@
 let user = {
-    isSignedIn: function() {
+    isSignedIn: function () {
         const user = localStorage.getItem('user');
-        if(user!=undefined && user!= "") {
-           return true;
+        if (user !== null && user !== "") {
+            return true;
         } else {
             return false;
         }
     },
 
-    getUserName: function() {
+    getUserName: function () {
         return localStorage.getItem('user');
     },
 
-    logOut: function() {
+    logOut: function () {
         localStorage.clear();
         location.replace("/");
     },
 
-    signIn: function(user) {
+    signIn: function (user) {
         location.reload();
         localStorage.setItem('user', user);
     }
