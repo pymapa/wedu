@@ -53,6 +53,7 @@ module.exports = {
         var message = new Message({
             message: data.message,
             course: data.course,
+            // created: new Date(),
             lecture: data.lecture,
             user: data.user,
             type: data.type

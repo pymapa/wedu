@@ -19,8 +19,9 @@ module.exports = function (io, socket) {
     **/
     socket.on('new message', function (message) {
         // Message to db
+        console.log(message)
         message.user = socket.user;
-        message.room = socket.room;
+        message.course = socket.room;
         messageService.newMessage(message, function (err, data) {
 
             if (!err) {
@@ -30,11 +31,11 @@ module.exports = function (io, socket) {
                     user: data.user,
                     message: data.message,
                     grade: data.grade,
-                    room: data.room,
+                    course: data.course,
                     solved: data.solved,
                     type: data.type,
-                    createdJS: data.created,
-                    created: data.created,
+                    createdJS: data.createdAt,
+                    created: data.createdAt,
                     _id: data._id
                 };
 
@@ -46,7 +47,7 @@ module.exports = function (io, socket) {
                 if (newMessage.type === messageService.TYPE_QUESTION) {
                     console.log("test new message: added question");
                     // io.sockets.emit('new message', newMessage);
-                    io.to(socket.course).emit('new message', newMessage);
+                    io.to(socket.room).emit('new message', newMessage);
 
                 } else if (newMessage.type === messageService.TYPE_MESSGE) {
                     if (message.questionId !== undefined || message.questionId.length > 0) {
@@ -54,7 +55,7 @@ module.exports = function (io, socket) {
                             function (err, data) {
                                 if (!err) {
                                     console.log("message added to a thread " + newMessage);
-                                    io.to(socket.course).emit('new message', newMessage);
+                                    io.to(socket.room).emit('new message', newMessage);
                                 } else {
                                     console.log("new message, in error " + err);
                                 }
@@ -63,7 +64,7 @@ module.exports = function (io, socket) {
                         console.log("")
                     }
                 } else {
-                    res.status(404).send("Something went wrong");
+                    res.status(500).send("Something went wrong");
                 }
             } else {
                 console.log("new message, in error " + err);

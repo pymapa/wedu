@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom';
 // import { Link } from 'react-router-dom';
 
 import './Course.css'
@@ -13,6 +14,11 @@ class Course extends Component {
             user: localStorage.getItem('user'),
             messages: []
         }
+    }
+
+    componentDidUpdate() {
+        const node = ReactDOM.findDOMNode(this.messagesEnd);
+        node.scrollIntoView({ behavior: "smooth" });
     }
 
     componentDidMount() {
@@ -39,9 +45,17 @@ class Course extends Component {
             .catch((err) => {
                 console.log(err);
             })
+
+        this.props.socket.on('new message', (data) => {
+            console.log(data)
+            let arr = this.state.messages.slice();
+            arr.push(data);
+            this.setState({ messages: arr })
+        });
     }
 
     render() {
+
         return (
             <div className="container">
                 <h1>{this.state.course.name}</h1>
@@ -49,9 +63,13 @@ class Course extends Component {
 
                 <div id="messages-wrapper">
                     <Messages messages={this.state.messages} />
+                    <div id="dummy-message" ref={(el) => { this.messagesEnd = el; }}>
+
+                    </div>
                 </div>
                 <div id="message-wrapper">
                     <Message socket={this.props.socket} />
+                    
                 </div>
             </div>
         )

@@ -4,8 +4,11 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-moment": "^0.2.2",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "socket.io-client": "^1.7.3",

@@ -1,2 +1,7 @@
 #messages-wrapper {
-  height: 65vh; }
+  height: 70vh;
+  overflow-y: scroll; }
+
+#dummy-message {
+  float: left;
+  clear: both; }

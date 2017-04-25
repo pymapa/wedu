@@ -5,7 +5,7 @@ var messageSchema = new mongoose.Schema({
     course: {type: String, required: true},
     lecture: {type: String, required: false},
     user: {type: String},
-    created: {type: Date, default: Date.now},
+    // created: {type: Date},
     grade: {
         upvotes: {type: [String], default: []},
         downvotes: {type: [String], default: []}
@@ -15,6 +15,8 @@ var messageSchema = new mongoose.Schema({
     thread: {
         messages: []
     },
-}, {collection: 'messages'})
+}, 
+{timestamps: true},
+{collection: 'messages'})
 
 module.exports = mongoose.model('Message', messageSchema);
