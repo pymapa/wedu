@@ -4,8 +4,8 @@ class Textarea extends Component {
 
     render () {
         return (
-            <div className={'form-group' + this.props.className}>
-                <label className="control-label">{this.props.label}</label>
+            <div className={'form-group ' + this.props.className}>
+                <label>{this.props.label}</label>
                 <textarea 
                     className='form-control'
                     rows={this.props.rows}

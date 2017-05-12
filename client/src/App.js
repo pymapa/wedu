@@ -34,14 +34,14 @@ class App extends Component {
       <div id="main-wrapper">
         <BrowserRouter>
           <div>
-            {/*<SocketProvider socket={socket}>*/}
             <Header />
+            <div id="content-wrapper">
             <Route exact path="/" render={() => <Home socket={socket}/> } />
             <Route path="/courses" render={() => <Courses socket={socket}/>} />
             <Route path="/course/:_id" render={(props) => <Course socket={socket} {...props}/>} />
             <Route path="/thread/:_id" render={(props) => <Thread socket={socket} {...props}/>} />
+            </div>
             <Footer />
-            {/*</SocketProvider>*/}
           </div>
         </BrowserRouter>
       </div>

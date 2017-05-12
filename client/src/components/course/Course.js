@@ -61,15 +61,25 @@ class Course extends Component {
                 <h1>{this.state.course.name}</h1>
                 <h1><small>{this.state.course.tag}</small></h1>
 
-                <div id="messages-wrapper">
-                    <Messages messages={this.state.messages} />
+                <div id="messages-wrapper row">
+                    <div className="col-sm-4">
+
+                    </div>
+                    <div className="col-sm-8">
+                        <Messages messages={this.state.messages} />
+                    </div>
                     <div id="dummy-message" ref={(el) => { this.messagesEnd = el; }}>
 
                     </div>
                 </div>
-                <div id="message-wrapper">
-                    <Message socket={this.props.socket} />
-                    
+                <div id="message-wrapper row">
+                    <div className="col-sm-10">
+                        <Message socket={this.props.socket} />
+                    </div>
+                    <div className="col-sm-2 form-group">
+                        <label htmlFor="attachment">Attachment</label>
+                        <input type="file" id="attachment" className="form-control-file" />
+                    </div>
                 </div>
             </div>
         )
