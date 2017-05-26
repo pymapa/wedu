@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import './Footer.css';
-import user from '../../services/user/User-service';
+import user from '../services/user/User-service';
 
 class Footer extends Component {
     constructor(props) {
