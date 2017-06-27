@@ -3,6 +3,7 @@ module.exports = function (app, io) {
     var connectedUsers = 0;
     io.sockets.on('connection', function (socket) {
         var userLogged = false;
+            console.log("connect");
 
         socket.on('add user', function (data) {
             if (userLogged) return;
